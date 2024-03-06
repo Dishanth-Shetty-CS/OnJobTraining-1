@@ -1,4 +1,4 @@
-public class Emp1Class {
+public class Emp1Class1 {
 	String emp_name, company_name;
 	float emp_salary;
 	int emp_id;
