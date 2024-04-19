@@ -20,6 +20,10 @@ let right_body = document.getElementById("right-body");
 let sidebar_options = document.getElementsByClassName("sidebar-options");
 
 function loadDashboard() {
+	document.getElementById("search-filter").style.display = "none";		
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
@@ -42,13 +46,33 @@ function loadDashboard() {
 }
 		
 	
-function loadDoctorList() {
+function loadDoctorList() {	
+	document.getElementById("search-filter").style.display = "block";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
 	
 	sidebar_options[1].classList.add("active-sidebar-options");	
 	
+	let search_filter = document.getElementById("search-filter");
+	
+	search_filter.addEventListener("keyup", function(event) {
+		if (event.key.length > 0) {						
+			
+			fetch('doctor_list.jsp?opname=search-filter&email_address=' + event.target.value)
+			.then(response => response.text())
+			.then(data => {
+				right_body.innerHTML = data;			
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});	
+		}
+	});	
+		
 	fetch('doctor_list.jsp?opname=doctor-list')
 	.then(response => response.text())
 	.then(data => {
@@ -56,11 +80,15 @@ function loadDoctorList() {
 	})
 	.catch(error => {
 		console.error('Error:', error);
-	});	
+	});				
 }
 
 
 function loadAddDoctor() {
+	document.getElementById("search-filter").style.display = "none";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
@@ -79,12 +107,32 @@ function loadAddDoctor() {
 
 
 function loadPatientList() {	
+	document.getElementById("search-filter").style.display = "block";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
 	
 	sidebar_options[3].classList.add("active-sidebar-options");	
 	
+	let search_filter = document.getElementById("search-filter");
+	
+	search_filter.addEventListener("keyup", function(event) {
+		if (event.key.length > 0) {						
+			
+			fetch('patient_list.jsp?opname=search-filter&email_address=' + event.target.value)
+			.then(response => response.text())
+			.then(data => {
+				right_body.innerHTML = data;			
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});	
+		}
+	});	
+		
 	fetch('patient_list.jsp?opname=patient-list')
 	.then(response => response.text())
 	.then(data => {
@@ -92,11 +140,15 @@ function loadPatientList() {
 	})
 	.catch(error => {
 		console.error('Error:', error);
-	});	
+	});				
 }
 
 
 function loadAddPatient() {
+	document.getElementById("search-filter").style.display = "none";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
@@ -115,6 +167,10 @@ function loadAddPatient() {
 
 
 function loadAppointments() {
+	document.getElementById("search-filter").style.display = "none";
+	document.getElementById("search-user-filter").style.display = "block";
+	document.getElementById("search-doctor-filter").style.display = "block";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
@@ -132,13 +188,33 @@ function loadAppointments() {
 }
 
 
-function loadAdminList() {
+function loadAdminList() {	
+	document.getElementById("search-filter").style.display = "block";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
 	
 	sidebar_options[6].classList.add("active-sidebar-options");	
 	
+	let search_filter = document.getElementById("search-filter");
+	
+	search_filter.addEventListener("keyup", function(event) {
+		if (event.key.length > 0) {						
+			
+			fetch('admin_list.jsp?opname=search-filter&email_address=' + event.target.value)
+			.then(response => response.text())
+			.then(data => {
+				right_body.innerHTML = data;			
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});	
+		}
+	});	
+		
 	fetch('admin_list.jsp?opname=admin-list')
 	.then(response => response.text())
 	.then(data => {
@@ -146,11 +222,15 @@ function loadAdminList() {
 	})
 	.catch(error => {
 		console.error('Error:', error);
-	});	
+	});				
 }
 
 
 function loadAddAdmin() {
+	document.getElementById("search-filter").style.display = "none";
+	document.getElementById("search-user-filter").style.display = "none";
+	document.getElementById("search-doctor-filter").style.display = "none";
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
 	}
@@ -306,14 +386,18 @@ function deletePatient(id) {
 
 /*---------------- Appointments ----------------*/
 		
-function loadApptsByFilter() {		
+function loadApptsByFilter() {	
 	let dept = document.getElementById("department-filter");
-	let apptStatus = document.getElementById("appointment-filter");
-	
+	let apptStatus = document.getElementById("appointment-filter");	
+	let search_user_filter = document.getElementById("search-user-filter");
+	let search_doctor_filter = document.getElementById("search-doctor-filter");
+		
 	sessionStorage.setItem("dept", dept.selectedIndex);
-	sessionStorage.setItem("status", apptStatus.selectedIndex);
-			
-	fetch('appointments.jsp?opname=filter&dept=' + dept.value + '&status=' + apptStatus.value)
+	sessionStorage.setItem("status", apptStatus.selectedIndex);		
+	sessionStorage.setItem('search_user_filter', search_user_filter.value);
+	sessionStorage.setItem('search_doctor_filter', search_doctor_filter.value);
+	
+	fetch('appointments.jsp?opname=filter&dept=' + dept.value + '&status=' + apptStatus.value + '&search_user_filter=' + sessionStorage.getItem("search_user_filter") + '&search_doctor_filter=' + sessionStorage.getItem("search_doctor_filter"))
 	.then(response => response.text())
 	.then(data => {
 		right_body.innerHTML = data;	
@@ -327,8 +411,63 @@ function loadApptsByFilter() {
 	})
 	.catch(error => {
 		console.error('Error:', error);
-	});	
+	});			
 }
+
+
+let search_user_filter = document.getElementById("search-user-filter");
+let search_doctor_filter = document.getElementById("search-doctor-filter");
+
+search_user_filter.addEventListener("keyup", function(event) {
+	sessionStorage.setItem('search_user_filter', event.target.value);
+	
+	if (event.key.length > 0) {			
+		let dept = document.getElementById("department-filter");
+		let apptStatus = document.getElementById("appointment-filter");			
+
+		fetch('appointments.jsp?opname=filter&dept=' + dept.value + '&status=' + apptStatus.value + '&search_user_filter=' + sessionStorage.getItem("search_user_filter") + '&search_doctor_filter=' + sessionStorage.getItem("search_doctor_filter"))
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;	
+			
+			let dept = document.getElementById("department-filter");
+			let apptStatus = document.getElementById("appointment-filter");
+			
+			dept.selectedIndex = sessionStorage.getItem("dept");
+			apptStatus.selectedIndex = sessionStorage.getItem("status");	
+			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	}
+});	
+
+
+search_doctor_filter.addEventListener("keyup", function(event) {
+	sessionStorage.setItem('search_doctor_filter', event.target.value);
+	
+	if (event.key.length > 0) {			
+		let dept = document.getElementById("department-filter");
+		let apptStatus = document.getElementById("appointment-filter");			
+		
+		fetch('appointments.jsp?opname=filter&dept=' + dept.value + '&status=' + apptStatus.value + '&search_user_filter=' + sessionStorage.getItem("search_user_filter") + '&search_doctor_filter=' + sessionStorage.getItem("search_doctor_filter"))
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;	
+			
+			let dept = document.getElementById("department-filter");
+			let apptStatus = document.getElementById("appointment-filter");
+			
+			dept.selectedIndex = sessionStorage.getItem("dept");
+			apptStatus.selectedIndex = sessionStorage.getItem("status");	
+			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	}
+});	
 
 
 /*---------------- Admin List ----------------*/
@@ -447,7 +586,7 @@ function submitPatientFormData(event) {
 }
 
 
-
+	 
 
 
 

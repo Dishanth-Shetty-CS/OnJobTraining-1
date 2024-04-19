@@ -1,383 +1,103 @@
-body {
-	padding: 0;
-	margin: 0;
-	height: 100vh;
-	background-color: white;
-	font-size: large;
-	font-family: "Poppins", sans-serif;
+.accept-button {
+  width: 120px; 
+  height: 30px;  
+  border-radius: 8px;  
+  border: none;         
+  color: white;
+  background-color: green;  
+  font-family: "Poppins", sans-serif; 
+  font-size: 18px; 
+  font-weight: 500;
+  cursor: pointer;
 }
 
-body::-webkit-scrollbar {
-	display: none;
+.accept-button:hover {
+  background-color: rgb(0, 102, 0);  
 }
 
-a {
-	text-decoration: none;
+.yes-button {
+  width: 100px; 
+  height: 30px;  
+  border-radius: 8px;  
+  border: none;         
+  color: white;
+  background-color: rgb(6, 111, 216);  
+  font-family: "Poppins", sans-serif; 
+  font-size: 18px; 
+  font-weight: 500;
+  cursor: pointer;
 }
 
-#header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	background-color: white;
-	box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2);
+.yes-button:hover {
+  background-color: rgb(7, 86, 165);
 }
 
-#logo {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-left: 20px;
-	font-size: 30px;
-	font-weight: 700;
-	letter-spacing: 0.5px;
-	color: #2c4964;
-	font-family: "Poppins", sans-serif;
+.no-button {
+  width: 100px; 
+  height: 30px;  
+  border-radius: 8px;  
+  border: none;         
+  color: white;
+  background-color: grey;  
+  font-family: "Poppins", sans-serif; 
+  font-size: 18px; 
+  font-weight: 500;
+  cursor: pointer;
 }
 
-nav {
-	display: flex;
-	margin-top: 23px;
-	margin-bottom: 18px;
-	justify-content: right;
-	margin-right: 15px;
-	flex-grow: 1;
-}
-
-nav button {
-	height: 40px;
-	border-radius: 20px;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	border: none;
-	padding-left: 10px;
-	padding-right: 20px;
-	color: white;
-	background-color: rgb(203, 5, 5);
-	font-family: "Poppins", sans-serif;
-	font-size: 15px;
-	font-weight: 500;
-}
-
-nav div:hover i, nav div:hover button {
-	background-color: red;
-	transition: .6s ease;
-	cursor: pointer;
-}
-
-.fa-right-from-bracket {
-	color: white;
-	font-size: 20px;
-	height: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 20px;
-	border-top-left-radius: 20px;
-	border-bottom-left-radius: 20px;
-}
-
-.logout-container {
-	display: flex;
-	flex-direction: row;
-	background-color: rgb(203, 5, 5);
-	height: 40px;
-	border-radius: 20px;
-}
-
-#sidebar {
-	color: rgb(40, 39, 39);
-	box-sizing: border-box;
-	position: fixed;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	width: 20vw;
-	height: 100vh;
-	padding-top: 30px;
-	font-weight: 600;
-}
-
-#right-body {
-	margin-left: 20vw;
-	background-color: #f1f4f6;
-	height: 100vh;
-	padding: 20px;
-	padding-top: 30px;
-}
-
-.sidebar-options {
-	display: flex;
-	flex-direction: row;
-	padding-left: 5px;
-}
-
-.sidebar-options:hover {
-	background-color: rgb(6, 111, 216);
-	color: white;
-	border-radius: 5px;
-	border-left: 8px solid greenyellow;
-	cursor: pointer;
-	transition: .6s ease-in-out;
-}
-
-.sidebar-options p {
-	margin: 0;
-	padding: 10px;
-}
-
-.sidebar-options i {
-	padding-top: 13px;
-}
-
-.fa-house-chimney, .fa-kit-medical {
-	padding: 10px;
-}
-
-.fa-user {
-	padding: 12px;
+.no-button:hover {
+  background-color: rgb(98, 98, 98);
 }
 
 .fa-prescription {
-	padding: 12px;
+  padding: 12px;
 }
 
-.dashboard-details {
-	display: flex;
-	flex-direction: row;
+.fa-clock-rotate-left {
+  padding: 11px;
 }
 
-.dashboard-top-container {
-	display: flex;
-	flex-direction: row;
-	gap: 40px;
+.col-div-register {
+  gap: 50px;
 }
 
-.view-details {
-	display: flex;
-	flex-direction: row;
-	background-color: gray;
-	border-radius: 10px;
-	padding: 20px;
-	width: 100%;
-	color: white;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .6s ease-in-out;
+.register-input textarea {
+  padding-top: 5px;
+  min-width: 80%;
+  min-height: 85px;
+  box-sizing: border-box;  
+  border-radius: 5px;  
+  padding-left: 10px;   
+  padding-right: 10px;      
+  font-family: "Poppins", sans-serif; 
+  font-size: 18px; 
+  font-weight: 700;
+  border: 1px solid black;  
+  color: rgb(6, 111, 216);    
+  letter-spacing: 0.5px;   
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;  
 }
 
-.view-details:hover {
-	transform: scale(1.1);
-	box-shadow: 1px 1px 5px grey;
+.register-input textarea::placeholder {  
+  font-size: 18px;
+  font-weight: 700;  
+  letter-spacing: 0.5px;  
+  color: #2c4964;
 }
 
-.dashboard-bottom-container {
-	background-color: white;
-	border: 1px solid black;
-	border-radius: 10px;
-	margin-top: 40px;
-	padding: 20px;
+.row-div-button button {
+  width: 100px;
 }
 
-.patient-lists-scroll{
-	overflow: auto;
-}
-
-/* Side bar option hover effect */
-.sidebar-options:hover i, .sidebar-options:hover p {
-	color: white;
-}
-
-.sidebar-options p {
-	color: rgb(40, 39, 39);
-}
-
-.sidebar-options i {
-	color: rgb(40, 39, 39);
-}
-
-body {
-	font-family: Arial, sans-serif;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-th, td {
-	padding: 10px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-th {
-	background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-tr:hover {
-	background-color: #ddd;
-	cursor: pointer;
-}
-
-/*Prescription form codes*/
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f2f2f2;
-}
-
-.container {
-	max-width: 800px;
-	height: 500px;
-	margin: 50px auto;
-	padding: 20px;
-	background-color: #ffffff;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-	text-align: center;
-	color: #333333;
-}
-
-.form-group {
-	margin-bottom: 20px;
-}
-
-label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 5px;
-	color: #333333;
-}
-
-input[type="text"], input[type="email"], select {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #cccccc;
-	border-radius: 5px;
-	outline: none;
-}
-
-input[type="submit"] {
-	width: 100%;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: #007bff;
-	color: #ffffff;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-	background-color: #0056b3;
-}
-
-.Accept-btn {
-	background-color: green;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	color: #fff;
-	font-weight: bold;
-	font-size: 16px;
-	cursor: pointer;
-}
-
-.Decline-btn {
-	background-color: red;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	color: #fff;
-	font-weight: bold;
-	font-size: 16px;
-	cursor: pointer;
-}
-
-   
- .awaiting-button {
-  background-color: orange;
+.fa-calendar-days {
   padding: 10px;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  width: 158px;
+  padding-left: 13px;
+  padding-right: 13px;
+  border: 1px solid black;
+  border-right: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #2c4964;
 }
 
-.approved-button {
-  background-color: green;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  width: 158px;
-}
-
-.cancelled-button {
-  background-color: red;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 16px;
-  color: white;
-  width: 158px;
-}
-
-.visited-button {
-  background-color: grey;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 16px;
-  color: white;
-  width: 158px;
-}
-
-body {
-  font-family: 'poppins',sans-serif;
-  background-color: #f0f9ff;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-table {
-  width: 101%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  border-radius: 10px;
-}
-
-th, td {
-  padding: 6px;
-  border: 1px solid grey;
-}
-
-th {
-  text-align: left;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-}
-
-
- 	

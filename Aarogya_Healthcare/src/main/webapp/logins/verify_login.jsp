@@ -27,9 +27,20 @@ if (email_address != null) {
 	     rs.next();
 	     String hashedPassword = rs.getString(1);
 	     
-		 if (BCrypt.checkpw(password.trim(), hashedPassword)) {			 			 
+		 if (BCrypt.checkpw(password.trim(), hashedPassword)) {					
+				
+			 if (user_table.equals("registered_doctors")) {
+				 String getDepartment = "SELECT department FROM registered_doctors WHERE email_address = \"" + email_address + "\"";
+				 rs = st.executeQuery(getDepartment);
+			     rs.next();
+			     String department = rs.getString(1);
+
+			     session = request.getSession();
+				 session.setAttribute("department", department);
+			 }
+			 
 			 response.setContentType("text/plain"); 
-			 response.getWriter().write(redirect_to); 			
+			 response.getWriter().write(redirect_to); 			 
 		 } else {			 
 			 response.setContentType("text/plain"); 
 			 response.getWriter().write("Incorrect"); 	

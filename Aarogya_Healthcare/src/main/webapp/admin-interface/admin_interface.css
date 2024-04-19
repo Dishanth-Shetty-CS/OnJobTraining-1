@@ -41,6 +41,7 @@ a {
 
 nav  {
   display: flex;
+  flex-direction: row;
   margin-top: 23px;
   margin-bottom: 18px;  
   justify-content: right;
@@ -66,6 +67,105 @@ nav button {
 nav div:hover i, nav div:hover button {  
   background-color: rgb(230, 0, 0);
   transition: all 0.1s ease-in-out;
+}
+
+.search-filter {  
+  padding-right: 20px;
+}
+
+#search-filter {
+  display: none;  
+}
+
+.search-filter textarea, .search-filter textarea:focus {  
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden; 
+  width: 280px;  
+  padding-top: 7px;
+  resize: none;
+  height: 40px;
+  border-radius: 20px; 
+  padding-left: 10px;
+  padding-right: 10px;  
+  border: 2px solid rgb(6, 111, 216);
+  color: rgb(6, 111, 216);
+  outline: none;
+  font-size: 18px; 
+  font-weight: bold;
+}
+
+.search-filter textarea::placeholder {  
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  color: rgb(6, 111, 216);
+}
+
+.search-user-filter {
+  padding-right: 20px;
+}
+
+#search-user-filter {
+  display: none;
+}
+
+.search-user-filter textarea, .search-user-filter textarea:focus {  
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden; 
+  width: 280px;  
+  padding-top: 7px;
+  resize: none;
+  height: 40px;
+  border-radius: 20px; 
+  padding-left: 10px;
+  padding-right: 10px;  
+  border: 2px solid rgb(6, 111, 216);
+  color: rgb(6, 111, 216);
+  outline: none;
+  font-size: 18px; 
+  font-weight: bold;
+}
+
+.search-user-filter textarea::placeholder {  
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  color: rgb(6, 111, 216);
+}
+
+.search-doctor-filter {
+  padding-right: 20px;
+}
+
+#search-doctor-filter {
+  display: none;
+}
+
+.search-doctor-filter textarea, .search-doctor-filter textarea:focus {  
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden; 
+  width: 280px;  
+  padding-top: 7px;
+  resize: none;
+  height: 40px;
+  border-radius: 20px; 
+  padding-left: 10px;
+  padding-right: 10px;  
+  border: 2px solid rgb(6, 111, 216);
+  color: rgb(6, 111, 216);
+  outline: none;
+  font-size: 18px; 
+  font-weight: bold;
+}
+
+.search-doctor-filter textarea::placeholder {  
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+  color: rgb(6, 111, 216);
 }
 
 .fa-right-from-bracket {
@@ -142,7 +242,7 @@ nav div:hover i, nav div:hover button {
   padding: 10px;  
 }
 
-.fa-user-doctor, .fa-user, .fa-user-tie {
+.fa-user-doctor, .fa-user, .fa-user-tie, .fa-calendar-check {
   padding: 12px;  
 }
 
@@ -246,6 +346,12 @@ td {
   border: 1px solid rgba(192, 192, 192, 0.8);  
 }
 
+th, td {
+  white-space: nowrap;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .fa-envelope {
   font-size: 26px;      
   padding-right: 20px;
@@ -319,8 +425,7 @@ td {
 }
 
 .delete-button {
-  padding-left: 30px;
-  padding-right: 30px;  
+  width: 120px; 
   height: 30px;  
   border-radius: 8px;  
   border: none;         
@@ -330,6 +435,18 @@ td {
   font-size: 18px; 
   font-weight: 500;
   cursor: pointer;
+}
+
+.null-button {
+  width: 120px;
+  height: 30px;  
+  border-radius: 8px;  
+  border: none;         
+  color: white;
+  background-color: rgb(6, 111, 216); 
+  font-family: "Poppins", sans-serif; 
+  font-size: 18px; 
+  font-weight: 500;    
 }
 
 .delete-button:hover {

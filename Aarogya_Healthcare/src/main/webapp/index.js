@@ -63,7 +63,7 @@ function submitQueries(event) {
 	const message = formData.get("message");	
 		
 	fetch("index.jsp?email_address=" + email_address + "&name=" + name + "&subject=" + subject + "&message=" + message);
-	window.alert("Sent Successfully");
+	window.alert("Query Sent Successfully");
 	window.location.reload();   
 }
 
@@ -100,7 +100,7 @@ if (login_main) {
 
 
 
-function verifyAdminLogin(event) {
+function verifyAdminLogin(event) {	
 	event.preventDefault();
 		
 	const formData = new FormData(event.target);
@@ -110,6 +110,7 @@ function verifyAdminLogin(event) {
 	const email_address = formData.get("email_address");
 	const password = formData.get("password");
 		
+	sessionStorage.setItem('registered_admins_email_address', email_address)
 	
 	fetch('verify_login.jsp?email_address=' + email_address + '&password=' + password + '&redirect_to=' + redirect_to + '&user_table=' + user_table, {
 	    method: 'POST'	    
@@ -134,10 +135,11 @@ function verifyDoctorLogin(event) {
 	const formData = new FormData(event.target);
 
 	const user_table = 'registered_doctors';
-	const redirect_to = '../doctor-interface/doctor_interface.jsp';
+	const redirect_to = '../doctor-interface/doctor_interface.html';
 	const email_address = formData.get("email_address");
 	const password = formData.get("password");
 		
+	sessionStorage.setItem('registered_doctors_email_address', email_address)
 	
 	fetch('verify_login.jsp?email_address=' + email_address + '&password=' + password + '&redirect_to=' + redirect_to + '&user_table=' + user_table, {
 	    method: 'POST'	    
@@ -148,7 +150,7 @@ function verifyDoctorLogin(event) {
 			document.getElementById("error").style.visibility = "visible";
 			return false;
 		} else {
-			sessionStorage.setItem("registered_doctors_email_address", email_address.trim());
+			sessionStorage.setItem("current_user", email_address.trim());
 			window.location.replace(data);
 		}
 	});
@@ -166,6 +168,7 @@ function verifyUserLogin(event) {
 	const email_address = formData.get("email_address");
 	const password = formData.get("password");
 		
+	sessionStorage.setItem('registered_users_email_address', email_address)
 	
 	fetch('verify_login.jsp?email_address=' + email_address + '&password=' + password + '&redirect_to=' + redirect_to + '&user_table=' + user_table, {
 	    method: 'POST'	    
@@ -176,7 +179,7 @@ function verifyUserLogin(event) {
 			document.getElementById("error").style.visibility = "visible";
 			return false;
 		} else {
-			sessionStorage.setItem("registered_users_email_address", email_address.trim());
+			sessionStorage.setItem("registered_current_user", email_address.trim());
 			window.location.replace(data);
 		}
 	});

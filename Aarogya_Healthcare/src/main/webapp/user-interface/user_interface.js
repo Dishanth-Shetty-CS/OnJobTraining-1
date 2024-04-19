@@ -1,8 +1,4 @@
-/**
- * 
- */
-
- //Sets the main tag margin-top offset 
+//Sets the main tag margin-top offset 
 let main = document.getElementById("main");
 let header = document.getElementById("header");
 window.addEventListener("load", function () {
@@ -19,13 +15,12 @@ window.addEventListener("resize", function () {
 var sidebar_options = document.getElementsByClassName("sidebar-options");
 
 function loadDashboard() {
+	
+	
 	for (let i = 0; i < sidebar_options.length; i++) {
 		sidebar_options[i].classList.remove("active-sidebar-options");			
-	}
-		
+	}	
 	sidebar_options[0].classList.add("active-sidebar-options");
-	
-	window.location.reload();
 }
 
 
@@ -138,4 +133,9 @@ document.getElementById('Prescriptions').addEventListener('click', function(even
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
+});
+
+// Trigger loadDashboard function on page load
+window.addEventListener('load', function() {
+    loadDashboard();
 });

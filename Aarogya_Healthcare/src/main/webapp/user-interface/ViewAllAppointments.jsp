@@ -29,7 +29,7 @@
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aarogya_healthcare_db", "root", "admin");
                     st = con.createStatement();
-                    rs = st.executeQuery("SELECT * FROM appointment_records WHERE appointment_status='Visited' OR appointment_status='Cancelled';");
+                    rs = st.executeQuery("SELECT * FROM appointment_records WHERE appointment_status='Visited' OR appointment_status='Not Visited' OR appointment_status='Cancelled';");
                     while (rs.next()) {
                         String status = rs.getString(5);
                         String buttonClass = "";
@@ -39,6 +39,9 @@
                             buttonClass = "approved-button";
                         } else if (status.equals("Visited")){
                             buttonClass = "visited-button";
+                        }
+                        else if (status.equals("Not Visited")){
+                            buttonClass = "not-visited-button";
                         } else if (status.equals("Cancelled")){
                             buttonClass = "cancelled-button";
 

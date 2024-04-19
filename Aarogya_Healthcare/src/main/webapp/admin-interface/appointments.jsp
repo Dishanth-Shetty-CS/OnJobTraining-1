@@ -21,45 +21,200 @@ try {
    		String deptValue = request.getParameter("dept");
    		String apptStatusValue = request.getParameter("status");
    		
-   		if (deptValue.equals("All Departments") && apptStatusValue.equals("All Status")) {
-   			//Gets the count of the total Appointments
-   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records");     
-   		    rs.next();
-   		    totalAppointments = rs.getInt(1); 
-   		    
-   		  	//Gets the Appointment List
-   		    String getAppointmentList = "SELECT * FROM appointment_records";
-   		    rs = st.executeQuery(getAppointmentList);
-   		    
+   		String search_user_filter = request.getParameter("search_user_filter");
+   		String search_doctor_filter = request.getParameter("search_doctor_filter");
+   	  		
+   		if (search_user_filter != null) {
+   			search_user_filter = search_user_filter.trim();
+   		}
+   		
+   		if (search_doctor_filter != null) {
+   			search_doctor_filter = search_doctor_filter.trim();
+   		}
+   		
+   		
+   		if (search_user_filter == null) {
+   			search_user_filter = "";
+   		}
+   		
+   		if (search_doctor_filter == null) {
+   			search_doctor_filter = "";
+   		}
+   		
+   		
+   		if (deptValue.equals("All Departments") && apptStatusValue.equals("All Status")) {   			
+   			
+   			if (search_user_filter.length() > 0 && search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_user_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records";
+   	   		    rs = st.executeQuery(getAppointmentList);   	   		    
+   			}   		
+   			
    		} else if (deptValue.equals("All Departments")) {
-   			//Gets the count of the total Appointments
-   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_status = \"" + apptStatusValue + "\"");     
-   		    rs.next();
-   		    totalAppointments = rs.getInt(1); 
-   		    
-   		  	//Gets the Appointment List
-   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_status = \"" + apptStatusValue + "\"";
-   		    rs = st.executeQuery(getAppointmentList);
-   		    
+   			
+   			if (search_user_filter.length() > 0 && search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_user_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);   	   		      	   		   
+   			} 
+   			
+   			
    		} else if (apptStatusValue.equals("All Status")) {
-   			//Gets the count of the total Appointments
-   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_type = \"" + deptValue + "\"");     
-   		    rs.next();
-   		    totalAppointments = rs.getInt(1); 
-   		    
-   		  	//Gets the Appointment List
-   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_type = \"" + deptValue + "\"";
-   		    rs = st.executeQuery(getAppointmentList);
-   		    
+   			
+   			if (search_user_filter.length() > 0 && search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_user_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_type = \"" + deptValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_type = \"" + deptValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_type = \"" + deptValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_type = \"" + deptValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);   	   		    
+   			}
+    		
+   			
    		} else {
-   			//Gets the count of the total Appointments
-   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"");     
-   		    rs.next();
-   		    totalAppointments = rs.getInt(1); 
-   		    
-   		  	//Gets the Appointment List
-   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"";
-   		    rs = st.executeQuery(getAppointmentList);
+   			
+   			if (search_user_filter.length() > 0 && search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_user_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_users_email_address LIKE \"" + search_user_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else if (search_doctor_filter.length() > 0) {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE registered_doctors_email_address LIKE \"" + search_doctor_filter + "%\" AND appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);
+   	   		    
+   			} else {
+   				//Gets the count of the total Appointments
+   	   		    rs = st.executeQuery("SELECT COUNT(*) FROM appointment_records WHERE appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"");     
+   	   		    rs.next();
+   	   		    totalAppointments = rs.getInt(1); 
+   	   		    
+   	   		  	//Gets the Appointment List
+   	   		    String getAppointmentList = "SELECT * FROM appointment_records WHERE appointment_type = \"" + deptValue + "\" AND appointment_status = \"" + apptStatusValue + "\"";
+   	   		    rs = st.executeQuery(getAppointmentList);   	   		    
+   			}    			
    		}
    		   		   	
    	 } else {
@@ -97,6 +252,7 @@ try {
 		  <option value="Awaiting">Awaiting</option>
 		  <option value="Cancelled">Cancelled</option>
 		  <option value="Visited">Visited</option>
+		  <option value="Not Visited">Not Visited</option>
 		</select>
 	</div>
 </div>
@@ -136,6 +292,10 @@ try {
 							<td style="text-align: center;" class="appt-list-button"><button style="background-color: red"><%= rs.getString(5) %></button></td>
 							<%
 						} else if (rs.getString(5).equals("Visited")) {
+							%>
+							<td style="text-align: center;" class="appt-list-button"><button style="background-color: rgb(6, 111, 216)"><%= rs.getString(5) %></button></td>
+							<%
+						} else if (rs.getString(5).equals("Not Visited")) {
 							%>
 							<td style="text-align: center;" class="appt-list-button"><button style="background-color: grey"><%= rs.getString(5) %></button></td>
 							<%

@@ -10,6 +10,7 @@ ResultSet rs = null;
 int totalDoctors = 0;
 
 String opname = request.getParameter("opname");
+String email_address = request.getParameter("email_address");
  
 try {
 	 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,14 +31,28 @@ try {
     	 st.executeUpdate(deleteDoctorSQL);
      }
      
-     //Gets the count of the total registered doctors
-     rs = st.executeQuery("SELECT COUNT(*) FROM registered_doctors");     
-     rs.next();
-     totalDoctors = rs.getInt(1);
      
-     //Gets the Doctor List
-     String getDoctorList = "SELECT * FROM registered_doctors";
-     rs = st.executeQuery(getDoctorList);
+     if (opname.equals("search-filter")) {
+    	 //Gets the count of the total registered doctors
+         rs = st.executeQuery("SELECT COUNT(*) FROM registered_doctors WHERE email_address LIKE \"" + email_address + "%\"");     
+         rs.next();
+         totalDoctors = rs.getInt(1);
+         
+         //Gets the Doctor List
+         String getDoctorList = "SELECT * FROM registered_doctors WHERE email_address LIKE \"" + email_address + "%\"";
+         rs = st.executeQuery(getDoctorList);
+     } else {
+    	 //Gets the count of the total registered doctors
+         rs = st.executeQuery("SELECT COUNT(*) FROM registered_doctors");     
+         rs.next();
+         totalDoctors = rs.getInt(1);  
+         
+         //Gets the Doctor List
+         String getDoctorList = "SELECT * FROM registered_doctors";
+         rs = st.executeQuery(getDoctorList);
+     }       
+     
+     
      
      //---------------------------------------
 

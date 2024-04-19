@@ -292,20 +292,22 @@ String name = request.getParameter("name");
 String subject = request.getParameter("subject");
 String message = request.getParameter("message");
 
-try {
-	 Class.forName("com.mysql.cj.jdbc.Driver");
-     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aarogya_healthcare_db","root","admin");
-     	  
-     pt = con.prepareStatement("INSERT INTO query_records(email_address, name, subject, message, message_status, date) VALUES (?, ?, ?, ?, 'unread', CURDATE())");                    	     
-     pt.setString(1, email_address.trim());
-     pt.setString(2, name.trim());
-     pt.setString(3, subject.trim());
-     pt.setString(4, message.trim());             
-        
-     pt.executeUpdate();
-     con.close();
-} catch(Exception e) {            
-     e.printStackTrace();
-} 	
+if (email_address != null) {
+	try {
+		 Class.forName("com.mysql.cj.jdbc.Driver");
+	     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aarogya_healthcare_db","root","admin");
+	     	  
+	     pt = con.prepareStatement("INSERT INTO query_records(email_address, name, subject, message, message_status, date) VALUES (?, ?, ?, ?, 'unread', CURDATE())");                    	     
+	     pt.setString(1, email_address.trim());
+	     pt.setString(2, name.trim());
+	     pt.setString(3, subject.trim());
+	     pt.setString(4, message.trim());             
+	        
+	     pt.executeUpdate();
+	     con.close();
+	} catch(Exception e) {            
+	     e.printStackTrace();
+	} 	
+}
 
 %>

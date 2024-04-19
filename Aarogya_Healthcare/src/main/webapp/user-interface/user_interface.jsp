@@ -16,16 +16,6 @@ try {
     Class.forName("com.mysql.cj.jdbc.Driver");
     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aarogya_healthcare_db","root","admin");
     
-   	Time currentTime = new Time(new java.util.Date().getTime());
-    String updateVisitedAppointments = "UPDATE appointment_records SET appointment_status = 'Visited' WHERE appointment_time < ? AND appointment_status = 'Approved'";
-    String updateCancelledAppointments = "UPDATE appointment_records SET appointment_status = 'Cancelled' WHERE appointment_time < ? AND appointment_status = 'Awaiting'";
-    st = con.prepareStatement(updateVisitedAppointments);
-    st = con.prepareStatement(updateCancelledAppointments);
-    st.setTime(1, currentTime);
-    st.executeUpdate();
-    st.close();
-    
-    
     // Query to get total prescriptions
     String getTotalPrescriptions = "SELECT COUNT(*) FROM prescription";
     st = con.prepareStatement(getTotalPrescriptions);
@@ -164,10 +154,12 @@ catch(Exception e) {
                         } else if (status.equals("Approved")) {
                             buttonClass = "approved-button";
                         } else if (status.equals("Visited")){
-                            buttonClass = "visited-button";
+                            buttonClass = "visited-button";   
+                        }
+                        else if (status.equals("Not Visited")){
+                            buttonClass = "not-visited-button";
                         } else if (status.equals("Cancelled")){
                             buttonClass = "cancelled-button";
-
                 		}
                 %>
 				<tr>
@@ -176,7 +168,7 @@ catch(Exception e) {
 					<td><%= rs.getString(3) %></td>
 					<td><%= rs.getString(4) %></td>
 					<td><%= rs.getString(7) %></td>
-					<td><button class="<%= buttonClass %>"><%= rs.getString(5) %></button></td>
+					<td><button style="position:relative; left: 30px;" class="<%= buttonClass %>"><%= rs.getString(5) %></button></td>
 				</tr>
 				<%
                     }
@@ -196,6 +188,6 @@ catch(Exception e) {
 			</div>
 		</div>
 	</main>
-	<script src="user_interface.js"></script>
+<script src="user_interface.js"></script>
 </body>
 </html>

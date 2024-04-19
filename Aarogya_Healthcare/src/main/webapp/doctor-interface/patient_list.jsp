@@ -16,20 +16,7 @@ try {
 	 Class.forName("com.mysql.cj.jdbc.Driver");
      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/aarogya_healthcare_db","root","admin");
      
-     st = con.createStatement();
-          
-     if (opname.equals("deletePatient")) {
-    	 String deleteId = request.getParameter("id");
-    	 
-    	 String updateAppointmentTbPatientFk = "UPDATE appointment_records SET registered_users_email_address = null where registered_users_email_address = \"" + deleteId + "\"";
-    	 st.executeUpdate(updateAppointmentTbPatientFk);
-    	 
-    	 String updatePrescriptionTbPatientFk = "UPDATE prescription SET registered_users_email_address = null where registered_users_email_address = \"" + deleteId + "\"";
-    	 st.executeUpdate(updatePrescriptionTbPatientFk);
-    	 
-    	 String deletePatientSQL = "DELETE FROM registered_users where email_address = \"" + deleteId + "\"";
-    	 st.executeUpdate(deletePatientSQL);
-     }
+     st = con.createStatement();             
      
      
      if (opname.equals("search-filter")) {
@@ -67,8 +54,7 @@ try {
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Phone Number</th>
-			<th>Email Address</th>
-			<th>Delete Account</th>
+			<th>Email Address</th>			
 		</tr>
 		
 		<%
@@ -80,7 +66,6 @@ try {
 					<td><%= rs.getString(3) %></td>
 					<td style="text-align: center"><%= rs.getString(4) %></td>
 					<td><%= rs.getString(1) %></td>
-					<td style="text-align: center"><button class="delete-button" id="<%= rs.getString(1) %>" onclick="deletePatient(this.id)">Delete</button></td>
 				</tr>
 		<%
 			}

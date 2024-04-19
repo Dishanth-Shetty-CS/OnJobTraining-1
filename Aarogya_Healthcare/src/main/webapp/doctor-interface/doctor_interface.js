@@ -11,99 +11,183 @@ window.addEventListener("resize", function() {
 	main.style.marginTop = header_height + "px";
 });
 
+ 
 
-document.getElementById('ViewAppointments').addEventListener('click', function(event) {
-	event.preventDefault();
+//Variable, where the dynamic pages will be loaded 
+let right_body = document.getElementById("right-body");
+let sidebar_options = document.getElementsByClassName("sidebar-options");
 
-	fetch('ViewAppointments.jsp')
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-			return response.text();
-		})
-		.then(data => {
-			document.getElementById('right-body').innerHTML = data; // Update the container with the fetched content
-		})
-		.catch(error => {
-			console.error('There was a problem with the fetch operation:', error);
-		});
-});
-
-
-document.getElementById('PatientLists').addEventListener('click', function(event) {
-	event.preventDefault();
-
-	fetch('PatientsLists.jsp')
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-			return response.text();
-		})
-		.then(data => {
-			document.getElementById('right-body').innerHTML = data; // Update the container with the fetched content
-		})
-		.catch(error => {
-			console.error('There was a problem with the fetch operation:', error);
-		});
-});
-
-//Accept Appointment
-let Accept_btn = document.getElementById('Accept-btn');
-if (Accept_btn) {
+function loadDashboard() {
+	document.getElementById("search-filter").style.display = "none";	
 	
-	Accept_btn.addEventListener('click', function(event) {
-		event.preventDefault();
-	
-		fetch('AcceptAppointments.jsp')
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.text();
-			})
-			.then(data => {
-				document.getElementById('right-body').innerHTML = data; // Update the container with the fetched content
-			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
-	});
-}
-
-//Decline Appointment
-let Decline_btn = document.getElementById('Decline-btn');
-if (Decline_btn) {
-	
-	Decline_btn.addEventListener('click', function(event) {
-		event.preventDefault();
-	
-		fetch('DeclineAppointments.jsp')
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				return response.text();
-			})
-			.then(data => {
-				document.getElementById('right-body').innerHTML = data; // Update the container with the fetched content
-			})
-			.catch(error => {
-				console.error('There was a problem with the fetch operation:', error);
-			});
-	});
-}
-
-document.getElementById('Prescribe').addEventListener('click', function() {	
-
-	fetch('Prescribe.jsp')
+	for (let i = 0; i < sidebar_options.length; i++) {
+		sidebar_options[i].classList.remove("active-sidebar-options");			
+	}
+		
+	sidebar_options[0].classList.add("active-sidebar-options");
+		
+	fetch('doctorDashboard.jsp?opname=appointments&dept=' + sessionStorage.getItem("department"))
 		.then(response => response.text())
 		.then(data => {
-			document.getElementById('right-body').innerHTML = data; // Update the container with the fetched content
+			right_body.innerHTML = data;			
 		})
 		.catch(error => {
-			console.error('There was a problem with the fetch operation:', error);
-		});
-});
+			console.error('Error:', error);
+		});							
+}
+
+
+function loadApptFilterDashboard(id) {
+	fetch('doctorDashboard.jsp?opname=update&apptId=' + id)
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});			
+}
+
+
+function visitedUpdate(id, button_type) {
+	fetch('doctorDashboard.jsp?opname=update&apptId=' + id + '&button_type=' + button_type)
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});			
+}
+
+
+
+function loadNewAppointments() {
+	document.getElementById("search-filter").style.display = "none";	
+	
+	for (let i = 0; i < sidebar_options.length; i++) {
+		sidebar_options[i].classList.remove("active-sidebar-options");			
+	}
+		
+	sidebar_options[1].classList.add("active-sidebar-options");
+	
+	fetch('new_Appointments.jsp?opname=appointments')
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});		
+}
+
+
+function loadNewApptFilter(id, action) {	
+	fetch('new_Appointments.jsp?opname=update&apptId=' + id + '&action=' + action + '&registered_doctors_email_address=' + sessionStorage.getItem("registered_doctors_email_address"))
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});			
+}
+
+
+
+function loadPrescription() {
+	document.getElementById("search-filter").style.display = "none";	
+	
+	for (let i = 0; i < sidebar_options.length; i++) {
+		sidebar_options[i].classList.remove("active-sidebar-options");			
+	}
+		
+	sidebar_options[2].classList.add("active-sidebar-options");
+		
+	fetch('prescription.jsp?opname=prescription')
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});	
+}
+
+
+
+function loadApptHistory() {
+	document.getElementById("search-filter").style.display = "none";	
+	
+	for (let i = 0; i < sidebar_options.length; i++) {
+		sidebar_options[i].classList.remove("active-sidebar-options");			
+	}
+		
+	sidebar_options[3].classList.add("active-sidebar-options");
+	
+	fetch('appointment_history.jsp')
+		.then(response => response.text())
+		.then(data => {
+			right_body.innerHTML = data;			
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});	
+}
+
+
+
+function loadPatientList() {	
+	document.getElementById("search-filter").style.display = "block";	
+	
+	for (let i = 0; i < sidebar_options.length; i++) {
+		sidebar_options[i].classList.remove("active-sidebar-options");			
+	}
+	
+	sidebar_options[4].classList.add("active-sidebar-options");	
+	
+	let search_filter = document.getElementById("search-filter");
+	
+	search_filter.addEventListener("keyup", function(event) {
+		if (event.key.length > 0) {						
+			
+			fetch('patient_list.jsp?opname=search-filter&email_address=' + event.target.value)
+			.then(response => response.text())
+			.then(data => {
+				right_body.innerHTML = data;			
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});	
+		}
+	});	
+		
+	fetch('patient_list.jsp?opname=patient-list')
+	.then(response => response.text())
+	.then(data => {
+		right_body.innerHTML = data;			
+	})
+	.catch(error => {
+		console.error('Error:', error);
+	});				
+}
+
+
+
+function submitPrescriptionForm(event) {			
+	event.preventDefault();	
+	const formData = new FormData(event.target);		
+	
+	fetch('prescription.jsp?' + new URLSearchParams(formData).toString())
+	.then(response => response.text())
+	.then(data => {
+		right_body.innerHTML = data;	
+		window.alert("Saved Successfully");		
+	})
+	.catch(error => {
+		console.error('Error:', error);
+	});	
+	
+	return false;
+}
 

@@ -10,6 +10,7 @@ ResultSet rs = null;
 int totalAdmins = 0;
 
 String opname = request.getParameter("opname");
+String email_address = request.getParameter("email_address");
  
 try {
 	 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -24,14 +25,17 @@ try {
     	 st.executeUpdate(deleteAdminSQL);
      }
      
-     //Gets the count of the total registered users
-     rs = st.executeQuery("SELECT COUNT(*) FROM registered_admins");     
-     rs.next();
-     totalAdmins = rs.getInt(1);
-     
-     //Gets the Patient List
-     String getAdminList = "SELECT * FROM registered_admins";
-     rs = st.executeQuery(getAdminList);
+     if (opname.equals("search-filter")) {
+    	 //Gets the count of the total registered admins
+	     rs = st.executeQuery("SELECT COUNT(*) FROM registered_admins WHERE email_address LIKE \"" + email_address + "%\"");     
+	     rs.next();
+	     totalAdmins = rs.getInt(1); 
+     } else {
+	     //Gets the count of the total registered admins
+	     rs = st.executeQuery("SELECT COUNT(*) FROM registered_admins");     
+	     rs.next();
+	     totalAdmins = rs.getInt(1);           	
+     }
      
      //---------------------------------------
 
@@ -48,24 +52,72 @@ try {
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Phone Number</th>
-			<th>Email Address</th>
+			<th>Email Address</th>			
+			<th>Admin Type</th>			
 			<th>Delete Account</th>
 		</tr>
 		
-		<%
-			for (int i = 1; i <= totalAdmins; i++) {
-				rs.next();
-		%>
+	<%		
+		if (!opname.equals("search-filter")) {
+			//Gets the Super Admin
+			String getSuperAdmin = "SELECT * FROM registered_admins WHERE admin_type = \"Super Admin\"";
+			rs = st.executeQuery(getSuperAdmin);
+			rs.next();	
+			
+			if (rs.getString(6).equals("Super Admin")) {
+				%>
 				<tr>
 					<td><%= rs.getString(2) %></td>
 					<td><%= rs.getString(3) %></td>
 					<td style="text-align: center"><%= rs.getString(4) %></td>
 					<td><%= rs.getString(1) %></td>
-					<td style="text-align: center"><button class="delete-button" id="<%= rs.getString(1) %>" onclick="deleteAdmin(this.id)">Delete</button></td>
-				</tr>
-		<%
+					<td style="text-align: center"><%= rs.getString(6) %></td>					
+					<td style="text-align: center"><button class="null-button">NULL</button></td>					
+				</tr>	
+				<%	
+			} 
+		}
+		
+		
+		//---------------------------------------
+			 
+		if (opname.equals("search-filter")) {
+			//Gets the Admin List
+		    String getAdminList = "SELECT * FROM registered_admins WHERE email_address LIKE \"" + email_address + "%\"";
+		    rs = st.executeQuery(getAdminList);		    		   
+		} else {
+			//Gets the Admin List
+		    String getAdminList = "SELECT * FROM registered_admins";
+		    rs = st.executeQuery(getAdminList);
+		}
+		
+		for (int i = 1; i <= totalAdmins; i++) {
+			rs.next();
+			if (rs.getString(6).equals("Super Admin") && opname.equals("admin-list")) {
+				continue;
+			} 
+			%>
+			<tr>
+				<td><%= rs.getString(2) %></td>
+				<td><%= rs.getString(3) %></td>
+				<td style="text-align: center"><%= rs.getString(4) %></td>
+				<td><%= rs.getString(1) %></td>
+				<td style="text-align: center"><%= rs.getString(6) %></td>
+				<%
+					if (rs.getString(6).equals("Super Admin")) {
+						%>
+						<td style="text-align: center"><button class="null-button">NULL</button></td>
+						<%
+					} else {
+						%>
+						<td style="text-align: center"><button class="delete-button" id="<%= rs.getString(1) %>" onclick="deleteAdmin(this.id)">Delete</button></td>																				
+						<%						
+					}
+				%>
+			</tr>
+			<%
 			}
-		%>		
+	%>		
 	</table>			
 </div>
 

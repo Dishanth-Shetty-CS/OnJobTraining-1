@@ -78,7 +78,7 @@ if (email_address != null) {
          int strength = 10; 
          String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(strength));         	     
 	     
-	     pt = con.prepareStatement("INSERT INTO registered_admins(email_address, first_name, last_name, phone_num, password) VALUES (?, ?, ?, ?, ?)");                    
+	     pt = con.prepareStatement("INSERT INTO registered_admins(email_address, first_name, last_name, phone_num, password, admin_type) VALUES (?, ?, ?, ?, ?, 'Admin')");                    
 	     pt.setString(1, email_address.trim());
 	     pt.setString(2, first_name.trim());
 	     pt.setString(3, last_name.trim());
